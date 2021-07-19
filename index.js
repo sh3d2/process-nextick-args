@@ -18,17 +18,17 @@ function nextTick(fn, arg1, arg2, arg3) {
   switch (len) {
   case 0:
   case 1:
-    return process.nextTick(fn);
+    return Promise.resolve().then(fn);
   case 2:
-    return process.nextTick(function afterTickOne() {
+    return Promise.resolve().then(function afterTickOne() {
       fn.call(null, arg1);
     });
   case 3:
-    return process.nextTick(function afterTickTwo() {
+    return Promise.resolve().then(function afterTickTwo() {
       fn.call(null, arg1, arg2);
     });
   case 4:
-    return process.nextTick(function afterTickThree() {
+    return Promise.resolve().then(function afterTickThree() {
       fn.call(null, arg1, arg2, arg3);
     });
   default:
@@ -37,7 +37,7 @@ function nextTick(fn, arg1, arg2, arg3) {
     while (i < args.length) {
       args[i++] = arguments[i];
     }
-    return process.nextTick(function afterTick() {
+    return Promise.resolve().then(function afterTick() {
       fn.apply(null, args);
     });
   }
